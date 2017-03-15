@@ -12,38 +12,49 @@ require 'jira-ruby'
 # Confluence -> JIRA
 # -----------------------------------------------
 
-options = {
-    :username        => ENV['JIRA_MAILADDRESS'],
-    :password        => ENV['JIRA_PASSWORD'],
-    :site            => ENV['JIRA_HOST'],
-    :context_path    => '/jira',
-    :use_ssl         => false,
-    :auth_type       => :basic
-}
+class JIRA_SENDER
+  attr_accessor :client, :project_id, :issue_type
 
-client = JIRA::Client.new(options)
-project_id = client.Project.find(ENV['JIRA_PROJECT_NAME']).id
-issue_type = client.Issuetype.all.find { |type| type.name == ENV['JIRA_ISSUE_NAME'] }.id
+  def initialize
+    options = {
+        :username        => ENV['JIRA_MAILADDRESS'],
+        :password        => ENV['JIRA_PASSWORD'],
+        :site            => ENV['JIRA_HOST'],
+        :context_path    => '/jira',
+        :use_ssl         => false,
+        :auth_type       => :basic
+    }
 
-issue = client.Issue.build
-response = issue.save(
-    {
-        fields: {
-            summary: '自動投稿テスト',
-            description: '説明',
-            labels: [
-                '自動投稿'
-            ],
-            project: {
-                id: project_id
-            },
-            issuetype: {
-                id: issue_type
+    @client = JIRA::Client.new(options)
+    @project_id = @client.Project.find(ENV['JIRA_PROJECT_NAME']).id
+    @issue_type = @client.Issuetype.all.find { |type| type.name == ENV['JIRA_ISSUE_NAME'] }.id
+  end
+
+  def send_jira(summary, description)
+    issue = @client.Issue.build
+    response = issue.save(
+        {
+            fields: {
+                summary: summary,
+                description: "Created by #{ENV['JIRA_MAILADDRESS']} Script 'AnyToJira'\n\n#{description}",
+                labels: [
+                    ENV['JIRA_LABEL']
+                ],
+                project: {
+                    id: @project_id
+                },
+                issuetype: {
+                    id: @issue_type
+                }
             }
         }
-    }
-)
-puts response
+    )
+    puts response unless response
+  end
+end
+
+sender = JIRA_SENDER.new
+sender.send_jira('自動投稿','説明文だよ')
 
 # agent = Mechanize.new
 # agent.user_agent = 'Mac Safari'
