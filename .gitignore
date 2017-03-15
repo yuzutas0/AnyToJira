@@ -160,5 +160,6 @@ tags
 # End of https://www.gitignore.io/api/macos,osx,vim,intellij,ruby
 
 # Custom
+vendor/
 .idea
 .env
