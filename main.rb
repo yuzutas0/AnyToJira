@@ -4,6 +4,7 @@ require 'dotenv'
 Dotenv.load '.env'
 
 require 'mechanize'
+require 'open-uri'
 
 # TODO: Confluence -> JIRA
 
@@ -15,9 +16,8 @@ agent.get(ENV['JIRA_HOST'] + 'login.action') do |page|
     form.os_password = ENV['JIRA_PASSWORD']
   end.submit
 
-  agent.get(ENV['JIRA_HOST'] + 'pages/viewpage.action?pageId=' + ENV['JIRA_PAGE']) do |page|
-    puts page.inspect
-  end
+  content = agent.get(ENV['JIRA_HOST'] + 'pages/viewpage.action?pageId=' + ENV['JIRA_PAGE']).content.toutf8
+  puts content
 end
 
 # TODO: JIRA -> JIRA
