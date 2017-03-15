@@ -102,7 +102,7 @@ class CONFLUENCE
   end
 end
 
-CONFLUENCE::titles.each { |title| sender.send_jira(title, CONFLUENCE::CONFLUENCE_PAGE) }
+# CONFLUENCE::titles.each { |title| sender.send_jira(title, CONFLUENCE::CONFLUENCE_PAGE) }
 
 
 # TODO: JIRA -> JIRA
