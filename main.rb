@@ -36,8 +36,7 @@ response = issue.save(
             },
             issuetype: {
                 id: issue_type
-            },
-
+            }
         }
     }
 )
