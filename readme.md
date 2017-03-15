@@ -7,3 +7,7 @@ the script migrating from Confluence table, JIRA ticket, Github issue to JIRA.
 ```
 bundle install --path=vendor/bundle
 ```
+
+```
+cp .env.template .env
+```

@@ -1,5 +1,8 @@
 # encoding:utf-8
 
+require 'dotenv'
+Dotenv.load '.env'
+
 require 'mechanize'
 
 # TODO: Confluence -> JIRA

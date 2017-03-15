@@ -161,3 +161,4 @@ tags
 
 # Custom
 .idea
+.env
