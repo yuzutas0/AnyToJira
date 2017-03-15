@@ -31,6 +31,9 @@ response = issue.save(
         fields: {
             summary: '自動投稿テスト',
             description: '説明',
+            labels: [
+                '自動投稿'
+            ],
             project: {
                 id: project_id
             },
