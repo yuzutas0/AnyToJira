@@ -9,5 +9,11 @@ bundle install --path=vendor/bundle
 ```
 
 ```
-cp .env.template .env
+cp .env.template .env # => write down variables
+```
+
+# Usage
+
+```
+bundle exec ruby main.rb
 ```

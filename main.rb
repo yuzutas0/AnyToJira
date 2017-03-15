@@ -9,13 +9,13 @@ require 'mechanize'
 
 agent = Mechanize.new
 agent.user_agent = 'Mac Safari'
-agent.get('host/login.action') do |page|
+agent.get(ENV['JIRA_HOST'] + 'login.action') do |page|
   page.form_with(:name => 'loginform') do |form|
-    form.os_username = 'mail'
-    form.os_password = 'password'
+    form.os_username = ENV['JIRA_MAILADDRESS']
+    form.os_password = ENV['JIRA_PASSWORD']
   end.submit
 
-  agent.get('host/pages/viewpage.action?pageId=xxx') do |page|
+  agent.get(ENV['JIRA_HOST'] + 'pages/viewpage.action?pageId=' + ENV['JIRA_PAGE']) do |page|
     puts page.inspect
   end
 end
