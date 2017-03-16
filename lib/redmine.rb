@@ -21,13 +21,19 @@ class REDMINE
 
   def self.request
     pages, issues = call_api['total_count'].to_i / LIMIT_SIZE + 1, {}
-    pages.times { |page| call_api(LIMIT_SIZE, page)['issues'].each { |issue| issues[issue['id']] = issue['subject'] } }
-    issues # => {issue_number: 'issue_subject', ... }
+    pages.times { |page| call_api(LIMIT_SIZE, page)['issues'].each { |issue| issues[issue['subject']] = url_of(issue) } }
+    puts issues # => { 'issue_subject': 'issue_url', ... }
   end
+
+  private
 
   def self.call_api(limit=1, page=1)
     request = "#{URL_PREFIX}&limit=#{limit}&page=#{page}"
     response = open(request, &:read).toutf8
     JSON.parse(response)
+  end
+
+  def self.url_of(issue)
+    "#{ENV['REDMINE_URL']}issues/#{issue['id']}"
   end
 end
