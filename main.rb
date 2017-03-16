@@ -6,13 +6,13 @@
 require 'dotenv'
 Dotenv.load '.env'
 
-
-
 # -----------------------------------------------
 # XXX -> JIRA
 # -----------------------------------------------
 require './lib/jira_sender'
-sender = JIRA_SENDER.new # e.g. sender.send_jira('title', 'description')
+sender = JIRA_SENDER.new
+# *** usage ***
+# sender.send_jira('title', 'description')
 
 # -----------------------------------------------
 # Confluence -> JIRA
