@@ -19,16 +19,9 @@ class CONFLUENCE
   CONFLUENCE_PAGE = ENV['CONFLUENCE_HOST'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']
 
   def self.titles
-    confluence_result = []
-
-    agent = Mechanize.new
-    agent.user_agent = 'Mac Safari'
-
+    confluence_result, agent = [], mechanize_agent
     agent.get(ENV['CONFLUENCE_HOST'] + 'login.action') do |page|
-      page.form_with(:name => 'loginform') do |form|
-        form.os_username = ENV['JIRA_MAILADDRESS']
-        form.os_password = ENV['JIRA_PASSWORD']
-      end.submit
+      login(page)
 
       html = agent.get(CONFLUENCE_PAGE).content.toutf8
       contents = Nokogiri::HTML(html, nil, 'utf-8')
@@ -50,5 +43,20 @@ class CONFLUENCE
       end
     end
     confluence_result
+  end
+
+  private
+
+  def mechanize_agent
+    agent = Mechanize.new
+    agent.user_agent = 'Mac Safari'
+    agent
+  end
+
+  def login(page)
+    page.form_with(:name => 'loginform') do |form|
+      form.os_username = ENV['JIRA_MAILADDRESS']
+      form.os_password = ENV['JIRA_PASSWORD']
+    end.submit
   end
 end
