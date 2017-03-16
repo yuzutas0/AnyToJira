@@ -30,6 +30,7 @@ class JIRA_SENDER
   end
 
   def send_jira(summary, description)
+    self.validation(summary, description)
     issue = @client.Issue.build
     response = issue.save(
         {
@@ -49,5 +50,16 @@ class JIRA_SENDER
         }
     )
     puts response unless response
+  end
+
+  def validation(summary, description)
+    already_exist = @client.Issue.jql("PROJECT = #{ENV['JIRA_PROJECT_NAME']}").any? do |issue|
+      issue.issuetype.id == @issue_type &&
+          issue.project.id == @project_id &&
+          issue.summary == summary &&
+          issue.description.include?(description)
+    end
+    puts 'already exist : ' + summary if already_exist
+    already_exist
   end
 end

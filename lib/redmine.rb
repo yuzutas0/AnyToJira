@@ -21,7 +21,12 @@ class REDMINE
 
   def self.issues
     pages, issues = request['total_count'].to_i / LIMIT_SIZE + 1, {}
-    pages.times { |page| request(LIMIT_SIZE, page)['issues'].each { |issue| issues[issue['subject']] = url_of(issue) } }
+    pages.times do |page|
+      this_page = page + 1
+      items = request(LIMIT_SIZE, this_page)['issues']
+      puts "page=#{this_page}/#{pages} : #{items.length} issues found!"
+      items.each { |issue| issues[issue['subject']] = url_of(issue) }
+    end
     issues # => { 'issue_subject': 'issue_url', ... }
   end
 
