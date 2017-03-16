@@ -24,7 +24,7 @@ sender = JIRA_SENDER.new
 # Redmine -> JIRA
 # -----------------------------------------------
 require './lib/redmine'
-REDMINE::request
+REDMINE::issues.each { |title, link| sender.send_jira(title, link) }
 
 # TODO: JIRA -> JIRA
 # TODO: Github Issue -> JIRA

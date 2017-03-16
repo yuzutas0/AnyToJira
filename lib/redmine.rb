@@ -19,15 +19,15 @@ class REDMINE
   URL_PREFIX = URL_HOST + URL_PARAMS
   LIMIT_SIZE = 100
 
-  def self.request
-    pages, issues = call_api['total_count'].to_i / LIMIT_SIZE + 1, {}
-    pages.times { |page| call_api(LIMIT_SIZE, page)['issues'].each { |issue| issues[issue['subject']] = url_of(issue) } }
-    puts issues # => { 'issue_subject': 'issue_url', ... }
+  def self.issues
+    pages, issues = request['total_count'].to_i / LIMIT_SIZE + 1, {}
+    pages.times { |page| request(LIMIT_SIZE, page)['issues'].each { |issue| issues[issue['subject']] = url_of(issue) } }
+    issues # => { 'issue_subject': 'issue_url', ... }
   end
 
   private
 
-  def self.call_api(limit=1, page=1)
+  def self.request(limit=1, page=1)
     request = "#{URL_PREFIX}&limit=#{limit}&page=#{page}"
     response = open(request, &:read).toutf8
     JSON.parse(response)
