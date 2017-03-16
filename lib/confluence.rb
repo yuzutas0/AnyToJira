@@ -23,24 +23,10 @@ class CONFLUENCE
     agent.get(ENV['CONFLUENCE_HOST'] + 'login.action') do |page|
       login(page)
       contents = crawl(agent)
-
-      ENV['CONFLUENCE_TABLE_START_ROW'].to_i.upto(ENV['CONFLUENCE_TABLE_END_ROW'].to_i) do |index|
-        confluence_xpath = CONFLUENCE_XPATH_PREFIX + index.to_s + CONFLUENCE_XPATH_SUFFIX
-        break if contents.xpath(confluence_xpath).empty?
-
-        unless contents.xpath(confluence_xpath).xpath('.//li').empty?
-          list_word = contents.xpath(confluence_xpath).xpath('.//li').text.to_s
-          list_word = list_word[0..4] if list_word.size > 5
-          text = contents.xpath(confluence_xpath).text.to_s
-          confluence_result << text.split(list_word)[0]
-          next
-        end
-
-        text = contents.xpath(confluence_xpath).text.to_s
-        confluence_result << text unless text.empty?
-      end
+      start_row, end_row = ENV['CONFLUENCE_TABLE_START_ROW'].to_i, ENV['CONFLUENCE_TABLE_END_ROW'].to_i
+      start_row.upto(end_row) { |index| confluence_result << scrape(contents, index) }
     end
-    confluence_result
+    confluence_result.compact.reject(&:empty?)
   end
 
   private
@@ -61,5 +47,19 @@ class CONFLUENCE
   def crawl(agent)
     html = agent.get(CONFLUENCE_PAGE).content.toutf8
     Nokogiri::HTML(html, nil, 'utf-8')
+  end
+
+  def scrape(contents='', index=0)
+    confluence_xpath = CONFLUENCE_XPATH_PREFIX + index.to_s + CONFLUENCE_XPATH_SUFFIX
+    return '' if contents.xpath(confluence_xpath).empty?
+    return scrape_content_with_list(contents, confluence_xpath) unless contents.xpath(confluence_xpath).xpath('.//li').empty?
+    contents.xpath(confluence_xpath).text.to_s
+  end
+
+  def scrape_content_with_list(contents, confluence_xpath)
+    list_word = contents.xpath(confluence_xpath).xpath('.//li').text.to_s
+    list_word = list_word[0..4] if list_word.size > 5
+    text = contents.xpath(confluence_xpath).text.to_s
+    text.split(list_word)[0]
   end
 end
