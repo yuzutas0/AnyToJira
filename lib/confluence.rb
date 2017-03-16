@@ -32,32 +32,32 @@ class CONFLUENCE
 
   private
 
-  def mechanize_agent
+  def self.mechanize_agent
     agent = Mechanize.new
     agent.user_agent = 'Mac Safari'
     agent
   end
 
-  def login(page)
+  def self.login(page)
     page.form_with(:name => 'loginform') do |form|
       form.os_username = ENV['JIRA_MAILADDRESS']
       form.os_password = ENV['JIRA_PASSWORD']
     end.submit
   end
 
-  def crawl(agent)
+  def self.crawl(agent)
     html = agent.get(CONFLUENCE_PAGE).content.toutf8
     Nokogiri::HTML(html, nil, 'utf-8')
   end
 
-  def scrape(contents='', index=0)
+  def self.scrape(contents='', index=0)
     confluence_xpath = CONFLUENCE_XPATH_PREFIX + index.to_s + CONFLUENCE_XPATH_SUFFIX
     return '' if contents.xpath(confluence_xpath).empty?
     return scrape_content_with_list(contents, confluence_xpath) unless contents.xpath(confluence_xpath).xpath('.//li').empty?
     contents.xpath(confluence_xpath).text.to_s
   end
 
-  def scrape_content_with_list(contents, confluence_xpath)
+  def self.scrape_content_with_list(contents, confluence_xpath)
     list_word = contents.xpath(confluence_xpath).xpath('.//li').text.to_s
     list_word = list_word[0..4] if list_word.size > 5
     text = contents.xpath(confluence_xpath).text.to_s
