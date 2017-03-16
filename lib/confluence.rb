@@ -16,11 +16,11 @@ require 'oauth'
 class CONFLUENCE
   CONFLUENCE_XPATH_PREFIX = '//*[@id="main-content"]/div/table/tbody/tr['
   CONFLUENCE_XPATH_SUFFIX = ']/td[' + ENV['CONFLUENCE_TABLE_COLUMN'].to_i.to_s + ']'
-  CONFLUENCE_PAGE = ENV['CONFLUENCE_HOST'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']
+  CONFLUENCE_PAGE = ENV['CONFLUENCE_URL'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']
 
   def self.titles
     confluence_result, agent = [], mechanize_agent
-    agent.get(ENV['CONFLUENCE_HOST'] + 'login.action') do |page|
+    agent.get(ENV['CONFLUENCE_URL'] + 'login.action') do |page|
       login(page)
       contents = crawl(agent)
       start_row, end_row = ENV['CONFLUENCE_TABLE_START_ROW'].to_i, ENV['CONFLUENCE_TABLE_END_ROW'].to_i
