@@ -20,6 +20,11 @@ sender = JIRA_SENDER.new
 # require './lib/confluence'
 # CONFLUENCE::titles.each { |title| sender.send_jira(title, CONFLUENCE::CONFLUENCE_PAGE) }
 
+# -----------------------------------------------
+# Redmine -> JIRA
+# -----------------------------------------------
+require './lib/redmine'
+
 # TODO: JIRA -> JIRA
 # TODO: Github Issue -> JIRA
 # TODO: TODO/FIXME in Code -> JIRA
