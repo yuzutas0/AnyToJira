@@ -8,6 +8,7 @@ Dotenv.load '.env'
 
 require 'mechanize'
 require 'open-uri'
+require 'kconv'
 require 'oauth'
 
 # -----------------------------------------------
