@@ -22,9 +22,7 @@ class CONFLUENCE
     confluence_result, agent = [], mechanize_agent
     agent.get(ENV['CONFLUENCE_HOST'] + 'login.action') do |page|
       login(page)
-
-      html = agent.get(CONFLUENCE_PAGE).content.toutf8
-      contents = Nokogiri::HTML(html, nil, 'utf-8')
+      contents = crawl(agent)
 
       ENV['CONFLUENCE_TABLE_START_ROW'].to_i.upto(ENV['CONFLUENCE_TABLE_END_ROW'].to_i) do |index|
         confluence_xpath = CONFLUENCE_XPATH_PREFIX + index.to_s + CONFLUENCE_XPATH_SUFFIX
@@ -58,5 +56,10 @@ class CONFLUENCE
       form.os_username = ENV['JIRA_MAILADDRESS']
       form.os_password = ENV['JIRA_PASSWORD']
     end.submit
+  end
+
+  def crawl(agent)
+    html = agent.get(CONFLUENCE_PAGE).content.toutf8
+    Nokogiri::HTML(html, nil, 'utf-8')
   end
 end
