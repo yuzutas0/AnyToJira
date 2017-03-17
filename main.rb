@@ -17,20 +17,25 @@ sender = JIRA_SENDER.new
 # -----------------------------------------------
 # Confluence -> JIRA
 # -----------------------------------------------
-# require './lib/confluence'
+require './lib/confluence'
 # CONFLUENCE::titles.each { |title| sender.send_jira(title, CONFLUENCE::CONFLUENCE_PAGE) }
 
 # -----------------------------------------------
 # Redmine -> JIRA
 # -----------------------------------------------
-# require './lib/redmine'
-# REDMINE::issues.each { |title, link| sender.send_jira(title, link) }
+require './lib/redmine'
+# issues = REDMINE::issues
 
 # -----------------------------------------------
 # JIRA -> JIRA
 # -----------------------------------------------
 require './lib/jira_receiver'
-JIRA_RECEIVER::issues.each { |title, link| sender.send_jira(title, link) }
+# issues = JIRA_RECEIVER::issues
+
+# -----------------------------------------------
+# Execute
+# -----------------------------------------------
+issues.each { |title, link| sender.send_jira(title, link) }
 
 # TODO: Github Issue -> JIRA
 # TODO: TODO/FIXME in Code -> JIRA
