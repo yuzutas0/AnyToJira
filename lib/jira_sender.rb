@@ -16,8 +16,7 @@ class JIRA_SENDER
   attr_accessor :client, :project_id, :issue_type
 
   def initialize
-    options = JIRA_COMMON::options
-    @client = JIRA::Client.new(options)
+    @client = JIRA::Client.new(JIRA_COMMON::options)
     @project_id = @client.Project.find(ENV['JIRA_PROJECT_NAME']).id
     @issue_type = @client.Issuetype.all.find { |type| type.name == ENV['JIRA_ISSUE_NAME'] }.id
   end

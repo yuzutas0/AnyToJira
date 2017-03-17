@@ -13,10 +13,7 @@ require './jira_common'
 # JIRA -> JIRA
 # -----------------------------------------------
 class JIRA
-  attr_accessor :client
-
-  def initialize
-    options = JIRA_COMMON::options
-    @client = JIRA::Client.new(options)
+  def self.issues
+    client = JIRA::Client.new(JIRA_COMMON::options)
   end
 end
