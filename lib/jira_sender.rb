@@ -7,6 +7,7 @@ require 'dotenv'
 Dotenv.load '.env'
 
 require 'jira-ruby'
+require './jira_common'
 
 # -----------------------------------------------
 # XXX -> JIRA
@@ -15,15 +16,7 @@ class JIRA_SENDER
   attr_accessor :client, :project_id, :issue_type
 
   def initialize
-    options = {
-        :username        => ENV['JIRA_MAILADDRESS'],
-        :password        => ENV['JIRA_PASSWORD'],
-        :site            => ENV['JIRA_HOST'],
-        :context_path    => ENV['JIRA_CONTEXT_PATH'],
-        :use_ssl         => false,
-        :auth_type       => :basic
-    }
-
+    options = JIRA_COMMON::options
     @client = JIRA::Client.new(options)
     @project_id = @client.Project.find(ENV['JIRA_PROJECT_NAME']).id
     @issue_type = @client.Issuetype.all.find { |type| type.name == ENV['JIRA_ISSUE_NAME'] }.id
