@@ -30,7 +30,7 @@ sender = JIRA_SENDER.new
 # JIRA -> JIRA
 # -----------------------------------------------
 require './lib/jira_receiver'
-JIRA_RECEIVER::issues
+JIRA_RECEIVER::issues.each { |title, link| sender.send_jira(title, link) }
 
 # TODO: Github Issue -> JIRA
 # TODO: TODO/FIXME in Code -> JIRA
