@@ -7,7 +7,7 @@ require 'dotenv'
 Dotenv.load '.env'
 
 require 'jira-ruby'
-require './jira_common'
+require './lib/jira_common'
 
 # -----------------------------------------------
 # XXX -> JIRA
