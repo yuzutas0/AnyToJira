@@ -20,14 +20,17 @@ class CONFLUENCE
   CONFLUENCE_PAGE = ENV['CONFLUENCE_URL'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']
 
   def self.titles
-    confluence_result, agent = [], mechanize_agent
+    result, agent = [], mechanize_agent
     agent.get(ENV['CONFLUENCE_URL'] + 'login.action') do |page|
       login(page)
       contents = crawl(agent)
       start_row, end_row = ENV['CONFLUENCE_TABLE_START_ROW'].to_i, ENV['CONFLUENCE_TABLE_END_ROW'].to_i
-      start_row.upto(end_row) { |index| confluence_result << scrape(contents, index) }
+      start_row.upto(end_row) do |index|
+        scraped = scrape(contents, index)
+        result << scraped unless scraped.empty?
+      end
     end
-    confluence_result.compact.reject(&:empty?)
+    result.compact.reject(&:empty?)
   end
 
   private
