@@ -6,29 +6,31 @@
 require 'dotenv'
 Dotenv.load '.env'
 
+issues = {}
+
 # -----------------------------------------------
 # Confluence -> JIRA
 # -----------------------------------------------
 require './lib/confluence'
-# issues = CONFLUENCE::issues
+# issues.merge CONFLUENCE::issues
 
 # -----------------------------------------------
 # Redmine -> JIRA
 # -----------------------------------------------
 require './lib/redmine'
-# issues = REDMINE::issues
+# issues.merge REDMINE::issues
 
 # -----------------------------------------------
 # JIRA -> JIRA
 # -----------------------------------------------
 require './lib/jira_receiver'
-# issues = JIRA_RECEIVER::issues
+# issues.merge JIRA_RECEIVER::issues
 
 # -----------------------------------------------
 # Github -> JIRA
 # -----------------------------------------------
 require './lib/github'
-issues = GITHUB::issues
+# issues.merge GITHUB::issues
 
 # TODO: TODO/FIXME in Code -> JIRA
 
