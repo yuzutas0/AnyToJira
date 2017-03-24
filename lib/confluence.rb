@@ -20,8 +20,8 @@ class CONFLUENCE
   CONFLUENCE_PAGE = ENV['CONFLUENCE_URL'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']
 
   def self.issues
-    issues = []
-    titles.each { |title| issues << [title, CONFLUENCE::CONFLUENCE_PAGE] }
+    issues = {}
+    titles.each { |title| issues[title] = CONFLUENCE::CONFLUENCE_PAGE }
     issues
   end
 
