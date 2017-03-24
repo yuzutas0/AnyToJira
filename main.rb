@@ -7,14 +7,6 @@ require 'dotenv'
 Dotenv.load '.env'
 
 # -----------------------------------------------
-# XXX -> JIRA
-# -----------------------------------------------
-require './lib/jira_sender'
-sender = JIRA_SENDER.new
-# *** usage ***
-# sender.send_jira('title', 'description')
-
-# -----------------------------------------------
 # Confluence -> JIRA
 # -----------------------------------------------
 require './lib/confluence'
@@ -38,10 +30,11 @@ require './lib/jira_receiver'
 require './lib/github'
 issues = GITHUB::issues
 
+# TODO: TODO/FIXME in Code -> JIRA
+
 # -----------------------------------------------
 # Execute
 # -----------------------------------------------
+require './lib/jira_sender'
+sender = JIRA_SENDER.new
 # issues.each { |title, link| sender.send_jira(title, link) }
-
-# TODO: Github Issue -> JIRA
-# TODO: TODO/FIXME in Code -> JIRA
