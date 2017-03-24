@@ -33,6 +33,12 @@ require './lib/jira_receiver'
 # issues = JIRA_RECEIVER::issues
 
 # -----------------------------------------------
+# Github -> JIRA
+# -----------------------------------------------
+require './lib/github'
+issues = GITHUB::issues
+
+# -----------------------------------------------
 # Execute
 # -----------------------------------------------
 issues.each { |title, link| sender.send_jira(title, link) }
