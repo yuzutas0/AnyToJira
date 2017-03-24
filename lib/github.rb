@@ -13,12 +13,25 @@ require 'octokit'
 # -----------------------------------------------
 class GITHUB
   def self.issues
-    issues = []
+    issues = {}
     client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
+
     ENV['GITHUB_REPOSITORIES'].split(',').each do |repository|
-      client.issues("#{ENV['GITHUB_ORGANIZATION']}/#{repository}").each do |issue|
+
+      responses = []
+      responses.concat client.issues("#{ENV['GITHUB_ORGANIZATION']}/#{repository}")
+      next_response = client.last_response.rels[:next]
+
+      while next_response
+        responses.concat next_response.get.data
+        next_response = next_response.get.rels[:next]
+      end
+
+      responses.reject! { |response| response.html_url.start_with? "https://github.com/#{ENV['GITHUB_ORGANIZATION']}/#{repository}/pull/" }
+
+      responses.each do |issue|
         puts issue.title
-        puts "https://github.com/#{ENV['GITHUB_ORGANIZATION']}/#{repository}/issues/#{issue.number}"
+        puts issue.html_url
         puts '*****'
       end
     end
