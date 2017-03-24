@@ -19,6 +19,14 @@ class CONFLUENCE
   CONFLUENCE_XPATH_SUFFIX = ']/td[' + ENV['CONFLUENCE_TABLE_COLUMN'].to_i.to_s + ']'
   CONFLUENCE_PAGE = ENV['CONFLUENCE_URL'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']
 
+  def self.issues
+    issues = []
+    titles.each { |title| issues << [title, CONFLUENCE::CONFLUENCE_PAGE] }
+    issues
+  end
+
+  private
+
   def self.titles
     result, agent = [], mechanize_agent
     agent.get(ENV['CONFLUENCE_URL'] + 'login.action') do |page|
@@ -32,8 +40,6 @@ class CONFLUENCE
     end
     result.compact.reject(&:empty?)
   end
-
-  private
 
   def self.mechanize_agent
     agent = Mechanize.new
