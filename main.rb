@@ -41,7 +41,7 @@ issues = GITHUB::issues
 # -----------------------------------------------
 # Execute
 # -----------------------------------------------
-issues.each { |title, link| sender.send_jira(title, link) }
+# issues.each { |title, link| sender.send_jira(title, link) }
 
 # TODO: Github Issue -> JIRA
 # TODO: TODO/FIXME in Code -> JIRA

@@ -14,9 +14,11 @@ require 'json'
 # Github -> JIRA
 # -----------------------------------------------
 class GITHUB
-  URL_HOST = "https://api.github.com/repos/#{ENV['GITHUB_ORGANIZATION']}/repo"
-
   def self.issues
+    client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
+    ENV['GITHUB_REPOSITORIES'].split(',').each do |repository|
+      puts client.issues "#{ENV['GITHUB_ORGANIZATION']}/#{repository}"
+    end
     []
   end
 end
