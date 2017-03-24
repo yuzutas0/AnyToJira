@@ -18,10 +18,9 @@ class GITHUB
     ENV['GITHUB_REPOSITORIES'].split(',').each do |repository|
       client.issues("#{ENV['GITHUB_ORGANIZATION']}/#{repository}").each do |issue|
         puts issue.title
-        puts issue.number
+        puts "https://github.com/#{ENV['GITHUB_ORGANIZATION']}/#{repository}/issues/#{issue.number}"
         puts '*****'
       end
-    end
     end
     issues
   end
