@@ -6,9 +6,7 @@
 require 'dotenv'
 Dotenv.load '.env'
 
-require 'open-uri'
-require 'kconv'
-require 'json'
+require 'octokit'
 
 # -----------------------------------------------
 # Github -> JIRA
@@ -17,7 +15,7 @@ class GITHUB
   def self.issues
     client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
     ENV['GITHUB_REPOSITORIES'].split(',').each do |repository|
-      puts client.issues "#{ENV['GITHUB_ORGANIZATION']}/#{repository}"
+      client.issues("#{ENV['GITHUB_ORGANIZATION']}/#{repository}").each { |issue| puts issue.inspect }
     end
     []
   end
