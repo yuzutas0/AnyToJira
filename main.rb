@@ -32,8 +32,6 @@ require './lib/jira_receiver'
 require './lib/github'
 # issues.merge GITHUB::issues
 
-# TODO: TODO/FIXME in Code -> JIRA
-
 # -----------------------------------------------
 # Execute
 # -----------------------------------------------
