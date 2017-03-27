@@ -1,19 +1,25 @@
 # About
 
-the script migrating from Confluence table, JIRA ticket, Github issue to JIRA.
+The script migrating from Confluence table, JIRA ticket, Redmine issue, and Github issue to JIRA.
 
 # Install
+
+Execute this command after setting ruby and bundler.
 
 ```
 bundle install --path=vendor/bundle
 ```
 
 ```
-cp .env.template .env # => write down variables
+cp ./.env.template ./.env
 ```
+
+Write down environment variables to ./.env file.
 
 # Usage
 
+Execute this command after canceling comment in ./main.rb file.
+
 ```
-bundle exec ruby main.rb
+bundle exec ruby ./main.rb
 ```
