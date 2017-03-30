@@ -30,19 +30,29 @@ class Confluence
     private
 
     def titles
-      result = []
-      agent = mechanize_agent
+      result, agent = io_variables
       agent.get(ENV['CONFLUENCE_URL'] + 'login.action') do |page|
         login(page)
-        contents = crawl(agent)
-        start_row = ENV['CONFLUENCE_TABLE_START_ROW'].to_i
-        end_row = ENV['CONFLUENCE_TABLE_END_ROW'].to_i
+        contents, start_row, end_row = crawl_variables(agent)
         start_row.upto(end_row) do |index|
           scraped = scrape(contents, index)
           result << scraped unless scraped.empty?
         end
       end
       result.compact.reject(&:empty?)
+    end
+
+    def io_variables
+      result = []
+      agent = mechanize_agent
+      [result, agent]
+    end
+
+    def crawl_variables(agent)
+      contents = crawl(agent)
+      start_row = ENV['CONFLUENCE_TABLE_START_ROW'].to_i
+      end_row = ENV['CONFLUENCE_TABLE_END_ROW'].to_i
+      [contents, start_row, end_row]
     end
 
     def mechanize_agent
