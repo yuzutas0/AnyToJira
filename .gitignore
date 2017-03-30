@@ -163,3 +163,4 @@ tags
 vendor/
 .idea
 .env
+.rubocop_todo.yml
