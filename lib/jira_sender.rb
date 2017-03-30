@@ -1,4 +1,5 @@
 # encoding:utf-8
+# frozen_string_literal: true
 
 # -----------------------------------------------
 # Require
@@ -16,7 +17,7 @@ class JIRA_SENDER
   attr_accessor :client, :project_id, :issue_type
 
   def initialize
-    @client = JIRA::Client.new(JIRA_COMMON::options)
+    @client = JIRA::Client.new(JIRA_COMMON.options)
     @project_id = @client.Project.find(ENV['JIRA_PROJECT_NAME']).id
     @issue_type = @client.Issuetype.all.find { |type| type.name == ENV['JIRA_ISSUE_NAME'] }.id
   end
@@ -25,21 +26,19 @@ class JIRA_SENDER
     # return if self.validation(summary)
     issue = @client.Issue.build
     response = issue.save(
-        {
-            fields: {
-                summary: summary,
-                description: "Created by #{ENV['JIRA_MAILADDRESS']} Script 'AnyToJira'\n\n#{description}",
-                labels: [
-                    ENV['JIRA_LABEL']
-                ],
-                project: {
-                    id: @project_id
-                },
-                issuetype: {
-                    id: @issue_type
-                }
-            }
+      fields: {
+        summary: summary,
+        description: "Created by #{ENV['JIRA_MAILADDRESS']} Script 'AnyToJira'\n\n#{description}",
+        labels: [
+          ENV['JIRA_LABEL']
+        ],
+        project: {
+          id: @project_id
+        },
+        issuetype: {
+          id: @issue_type
         }
+      }
     )
     puts response unless response
   end

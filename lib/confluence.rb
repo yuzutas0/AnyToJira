@@ -1,4 +1,5 @@
 # encoding:utf-8
+# frozen_string_literal: true
 
 # -----------------------------------------------
 # Require
@@ -28,11 +29,13 @@ class CONFLUENCE
   private
 
   def self.titles
-    result, agent = [], mechanize_agent
+    result = []
+    agent = mechanize_agent
     agent.get(ENV['CONFLUENCE_URL'] + 'login.action') do |page|
       login(page)
       contents = crawl(agent)
-      start_row, end_row = ENV['CONFLUENCE_TABLE_START_ROW'].to_i, ENV['CONFLUENCE_TABLE_END_ROW'].to_i
+      start_row = ENV['CONFLUENCE_TABLE_START_ROW'].to_i
+      end_row = ENV['CONFLUENCE_TABLE_END_ROW'].to_i
       start_row.upto(end_row) do |index|
         scraped = scrape(contents, index)
         result << scraped unless scraped.empty?
@@ -48,7 +51,7 @@ class CONFLUENCE
   end
 
   def self.login(page)
-    page.form_with(:name => 'loginform') do |form|
+    page.form_with(name: 'loginform') do |form|
       form.os_username = ENV['JIRA_MAILADDRESS']
       form.os_password = ENV['JIRA_PASSWORD']
     end.submit
@@ -59,7 +62,7 @@ class CONFLUENCE
     Nokogiri::HTML(html, nil, 'utf-8')
   end
 
-  def self.scrape(contents='', index=0)
+  def self.scrape(contents = '', index = 0)
     confluence_xpath = CONFLUENCE_XPATH_PREFIX + index.to_s + CONFLUENCE_XPATH_SUFFIX
     return '' if contents.xpath(confluence_xpath).empty?
     return scrape_content_with_list(contents, confluence_xpath) unless contents.xpath(confluence_xpath).xpath('.//li').empty?

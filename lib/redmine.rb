@@ -1,4 +1,5 @@
 # encoding:utf-8
+# frozen_string_literal: true
 
 # -----------------------------------------------
 # Require
@@ -20,7 +21,8 @@ class REDMINE
   LIMIT_SIZE = 100
 
   def self.issues
-    pages, issues = request['total_count'].to_i / LIMIT_SIZE + 1, {}
+    pages = request['total_count'].to_i / LIMIT_SIZE + 1
+    issues = {}
     pages.times do |page|
       this_page = page + 1
       items = request(LIMIT_SIZE, this_page)['issues']
@@ -32,7 +34,7 @@ class REDMINE
 
   private
 
-  def self.request(limit=1, page=1)
+  def self.request(limit = 1, page = 1)
     request = "#{URL_PREFIX}&limit=#{limit}&page=#{page}"
     response = open(request, &:read).toutf8
     JSON.parse(response)

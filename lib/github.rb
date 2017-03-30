@@ -1,4 +1,5 @@
 # encoding:utf-8
+# frozen_string_literal: true
 
 # -----------------------------------------------
 # Require
@@ -16,7 +17,7 @@ class GITHUB
 
   def self.issues
     issues = {}
-    client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
+    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
     REPOSITORIES.each { |repo| responses(client, repo).each { |issue| issues[issue.title] = issue.html_url } }
     issues
   end
