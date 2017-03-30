@@ -79,7 +79,7 @@ DEPENDENCIES
   nokogiri
   octokit
   rake
-  rubocop
+  rubocop (~> 0.48.0)
 
 RUBY VERSION
    ruby 2.3.1p112

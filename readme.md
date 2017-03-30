@@ -29,7 +29,9 @@ bundle exec ruby ./main.rb
 use static code analysis before commit
 
 ```
-rake rubocop
-rake rubocop:auto_correct
-rubocop --auto-gen-config # => make source code better!
+bundle exec rake rubocop
+bundle exec rake rubocop:auto_correct
+bundle exec rubocop --auto-gen-config
+
+# => make source code better!
 ```

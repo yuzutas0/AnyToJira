@@ -4,7 +4,7 @@ ruby '2.3.1'
 
 gem 'rake'
 gem 'dotenv'
-gem 'rubocop'
+gem 'rubocop', '~> 0.48.0', require: false
 
 gem 'nokogiri'
 gem 'mechanize'
