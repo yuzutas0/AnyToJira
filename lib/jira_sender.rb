@@ -28,19 +28,40 @@ class JiraSender
     response = issue.save(
       fields: {
         summary: summary,
-        description: "Created by #{ENV['JIRA_MAILADDRESS']} Script 'AnyToJira'\n\n#{description}",
-        labels: [
-          ENV['JIRA_LABEL']
-        ],
-        project: {
-          id: @project_id
-        },
-        issuetype: {
-          id: @issue_type
-        }
-      }
+        description: "Created by #{ENV['JIRA_MAILADDRESS']} Script 'AnyToJira'\n\n#{description}"
+      }.merge(fields)
     )
     puts response unless response
+  end
+
+  private
+
+  def fields
+    labels.merge(project).merge(issue_type)
+  end
+
+  def labels
+    {
+      labels: [
+        ENV['JIRA_LABEL']
+      ]
+    }
+  end
+
+  def project
+    {
+      project: {
+        id: @project_id
+      }
+    }
+  end
+
+  def issue_type
+    {
+      issuetype: {
+        id: @issue_type
+      }
+    }
   end
 
   # def validation(summary)
