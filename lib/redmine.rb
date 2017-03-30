@@ -21,7 +21,6 @@ class Redmine
   LIMIT_SIZE = 100
 
   class << self
-
     def issues
       pages = request['total_count'].to_i / LIMIT_SIZE + 1
       issues = {}

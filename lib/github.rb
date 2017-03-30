@@ -16,7 +16,6 @@ class Github
   REPOSITORIES = ENV['GITHUB_REPOSITORIES'].split(',')
 
   class << self
-
     def issues
       issues = {}
       client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])

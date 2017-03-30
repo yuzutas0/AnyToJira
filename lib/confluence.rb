@@ -21,7 +21,6 @@ class Confluence
   CONFLUENCE_PAGE = ENV['CONFLUENCE_URL'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']
 
   class << self
-
     def issues
       issues = {}
       titles.each { |title| issues[title] = CONFLUENCE::CONFLUENCE_PAGE }
