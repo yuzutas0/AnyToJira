@@ -10,7 +10,7 @@ Dotenv.load '.env'
 # -----------------------------------------------
 # Settings
 # -----------------------------------------------
-class JIRA_COMMON
+class JiraCommon
   def self.options
     {
       username: ENV['JIRA_MAILADDRESS'],

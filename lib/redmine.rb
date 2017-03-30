@@ -14,7 +14,7 @@ require 'json'
 # -----------------------------------------------
 # Redmine -> JIRA
 # -----------------------------------------------
-class REDMINE
+class Redmine
   URL_HOST = "#{ENV['REDMINE_URL']}/projects/#{ENV['REDMINE_PROJECT_NAME']}/issues.json"
   URL_PARAMS = "?key=#{ENV['REDMINE_API_KEY']}&query_id=#{ENV['REDMINE_QUERY_ID']}"
   URL_PREFIX = URL_HOST + URL_PARAMS

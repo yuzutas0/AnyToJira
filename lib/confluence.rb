@@ -15,7 +15,7 @@ require 'oauth'
 # -----------------------------------------------
 # Confluence -> JIRA
 # -----------------------------------------------
-class CONFLUENCE
+class Confluence
   CONFLUENCE_XPATH_PREFIX = '//*[@id="main-content"]/div/table/tbody/tr['
   CONFLUENCE_XPATH_SUFFIX = ']/td[' + ENV['CONFLUENCE_TABLE_COLUMN'].to_i.to_s + ']'
   CONFLUENCE_PAGE = ENV['CONFLUENCE_URL'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']

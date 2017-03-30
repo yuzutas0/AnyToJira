@@ -13,7 +13,7 @@ require './lib/jira_common'
 # -----------------------------------------------
 # XXX -> JIRA
 # -----------------------------------------------
-class JIRA_SENDER
+class JiraSender
   attr_accessor :client, :project_id, :issue_type
 
   def initialize

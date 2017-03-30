@@ -13,29 +13,29 @@ _issues = {}
 # Confluence -> JIRA
 # -----------------------------------------------
 require './lib/confluence'
-# _issues.merge! CONFLUENCE::issues
+# _issues.merge! Confluence::issues
 
 # -----------------------------------------------
 # Redmine -> JIRA
 # -----------------------------------------------
 require './lib/redmine'
-# _issues.merge! REDMINE::issues
+# _issues.merge! Redmine::issues
 
 # -----------------------------------------------
 # JIRA -> JIRA
 # -----------------------------------------------
 require './lib/jira_receiver'
-# _issues.merge! JIRA_RECEIVER::issues
+# _issues.merge! JiraReceiver::issues
 
 # -----------------------------------------------
 # Github -> JIRA
 # -----------------------------------------------
 require './lib/github'
-# _issues.merge! GITHUB::issues
+# _issues.merge! Github::issues
 
 # -----------------------------------------------
 # Execute
 # -----------------------------------------------
 require './lib/jira_sender'
-_sender = JIRA_SENDER.new
+_sender = JiraSender.new
 # _issues.each { |title, link| _sender.send_jira(title, link) }

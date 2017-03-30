@@ -12,7 +12,7 @@ require 'octokit'
 # -----------------------------------------------
 # Github -> JIRA
 # -----------------------------------------------
-class GITHUB
+class Github
   REPOSITORIES = ENV['GITHUB_REPOSITORIES'].split(',')
 
   class << self

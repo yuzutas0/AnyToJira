@@ -13,7 +13,7 @@ require './lib/jira_common'
 # -----------------------------------------------
 # JIRA -> JIRA
 # -----------------------------------------------
-class JIRA_RECEIVER
+class JiraReceiver
   JIRA_ISSUE_URL_PREFIX = "#{ENV['JIRA_HOST']}#{ENV['JIRA_CONTEXT_PATH']}/browse/"
 
   def self.issues
