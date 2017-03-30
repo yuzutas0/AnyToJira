@@ -7,35 +7,35 @@
 require 'dotenv'
 Dotenv.load '.env'
 
-issues = {}
+_issues = {}
 
 # -----------------------------------------------
 # Confluence -> JIRA
 # -----------------------------------------------
 require './lib/confluence'
-# issues.merge! CONFLUENCE::issues
+# _issues.merge! CONFLUENCE::issues
 
 # -----------------------------------------------
 # Redmine -> JIRA
 # -----------------------------------------------
 require './lib/redmine'
-# issues.merge! REDMINE::issues
+# _issues.merge! REDMINE::issues
 
 # -----------------------------------------------
 # JIRA -> JIRA
 # -----------------------------------------------
 require './lib/jira_receiver'
-# issues.merge! JIRA_RECEIVER::issues
+# _issues.merge! JIRA_RECEIVER::issues
 
 # -----------------------------------------------
 # Github -> JIRA
 # -----------------------------------------------
 require './lib/github'
-# issues.merge! GITHUB::issues
+# _issues.merge! GITHUB::issues
 
 # -----------------------------------------------
 # Execute
 # -----------------------------------------------
 require './lib/jira_sender'
-sender = JIRA_SENDER.new
-# issues.each { |title, link| sender.send_jira(title, link) }
+_sender = JIRA_SENDER.new
+# _issues.each { |title, link| _sender.send_jira(title, link) }
