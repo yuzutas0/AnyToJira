@@ -13,25 +13,25 @@ issues = {}
 # Confluence -> JIRA
 # -----------------------------------------------
 require './lib/confluence'
-# issues.merge CONFLUENCE::issues
+# issues.merge! CONFLUENCE::issues
 
 # -----------------------------------------------
 # Redmine -> JIRA
 # -----------------------------------------------
 require './lib/redmine'
-# issues.merge REDMINE::issues
+# issues.merge! REDMINE::issues
 
 # -----------------------------------------------
 # JIRA -> JIRA
 # -----------------------------------------------
 require './lib/jira_receiver'
-# issues.merge JIRA_RECEIVER::issues
+# issues.merge! JIRA_RECEIVER::issues
 
 # -----------------------------------------------
 # Github -> JIRA
 # -----------------------------------------------
 require './lib/github'
-# issues.merge GITHUB::issues
+# issues.merge! GITHUB::issues
 
 # -----------------------------------------------
 # Execute
