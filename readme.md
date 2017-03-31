@@ -2,7 +2,7 @@
 
 The script migrating from Confluence table, JIRA ticket, Redmine issue, and Github issue to JIRA.
 
-![about](./docs/about.svg)
+![about](./docs/about.png)
 
 # Install
 
