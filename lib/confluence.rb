@@ -17,8 +17,9 @@ require 'oauth'
 # -----------------------------------------------
 class Confluence
   CONFLUENCE_XPATH_PREFIX = '//*[@id="main-content"]/div/table/tbody/tr['
-  CONFLUENCE_XPATH_SUFFIX = ']/td[' + ENV['CONFLUENCE_TABLE_COLUMN'].to_i.to_s + ']'
-  CONFLUENCE_PAGE = ENV['CONFLUENCE_URL'] + 'pages/viewpage.action?pageId=' + ENV['CONFLUENCE_PAGE']
+  CONFLUENCE_XPATH_SUFFIX = "]/td[#{ENV['CONFLUENCE_TABLE_COLUMN']}]"
+  CONFLUENCE_PAGE = "#{ENV['CONFLUENCE_URL']}pages/viewpage.action?" \
+                    "pageId=#{ENV['CONFLUENCE_PAGE']}"
 
   class << self
     def issues
@@ -74,9 +75,12 @@ class Confluence
     end
 
     def scrape(contents = '', index = 0)
-      confluence_xpath = CONFLUENCE_XPATH_PREFIX + index.to_s + CONFLUENCE_XPATH_SUFFIX
+      confluence_xpath = CONFLUENCE_XPATH_PREFIX +
+                         index.to_s + CONFLUENCE_XPATH_SUFFIX
       return '' if contents.xpath(confluence_xpath).empty?
-      return scrape_content_with_list(contents, confluence_xpath) unless contents.xpath(confluence_xpath).xpath('.//li').empty?
+      unless contents.xpath(confluence_xpath).xpath('.//li').empty?
+        return scrape_content_with_list(contents, confluence_xpath)
+      end
       contents.xpath(confluence_xpath).text.to_s
     end
 
