@@ -65,7 +65,8 @@ class JiraSender
   end
 
   # def validation(summary)
-  #   already_exist = @client.Issue.jql("PROJECT = #{ENV['JIRA_PROJECT_NAME']}").any? do |issue|
+  #   query = "PROJECT = #{ENV['JIRA_PROJECT_NAME']}"
+  #   already_exist = @client.Issue.jql(query).any? do |issue|
   #     issue.issuetype.id == @issue_type &&
   #         issue.project.id == @project_id &&
   #         issue.summary == summary
