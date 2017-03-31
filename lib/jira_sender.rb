@@ -14,6 +14,8 @@ require './lib/jira_common'
 # XXX -> JIRA
 # -----------------------------------------------
 class JiraSender
+  DESC_PREFIX = "Created by #{ENV['JIRA_MAILADDRESS']} Script 'AnyToJira'\n\n"
+
   attr_accessor :client, :project_id, :issue_type
 
   def initialize
@@ -28,7 +30,7 @@ class JiraSender
     response = issue.save(
       fields: {
         summary: summary,
-        description: "Created by #{ENV['JIRA_MAILADDRESS']} Script 'AnyToJira'\n\n#{description}"
+        description: DESC_PREFIX + description
       }.merge(fields)
     )
     puts response unless response
