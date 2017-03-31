@@ -13,6 +13,7 @@ require 'octokit'
 # Github -> JIRA
 # -----------------------------------------------
 class Github
+  URL = 'https://github.com/'
   REPOSITORIES = ENV['GITHUB_REPOSITORIES'].split(',')
 
   class << self
@@ -28,13 +29,16 @@ class Github
     def responses(client, repository)
       responses, next_response = call_api(client, repository)
       paging(responses, next_response)
-      pull_request_prefix = "https://github.com/#{ENV['GITHUB_ORGANIZATION']}/#{repository}/pull/"
-      responses.reject { |response| response.html_url.start_with? pull_request_prefix }
+      pr_prefix = "#{URL}#{ENV['GITHUB_ORGANIZATION']}/#{repository}/pull/"
+      responses.reject do |response|
+        response.html_url.start_with? pr_prefix
+      end
     end
 
     def call_api(client, repository)
       responses = []
-      responses.concat client.issues("#{ENV['GITHUB_ORGANIZATION']}/#{repository}")
+      repository_path = "#{ENV['GITHUB_ORGANIZATION']}/#{repository}"
+      responses.concat client.issues(repository_path)
       next_response = client.last_response.rels[:next]
       [responses, next_response]
     end
