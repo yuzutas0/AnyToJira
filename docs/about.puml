@@ -1,0 +1,20 @@
+/'
+## Setup
+1. Install graphviz into MacOSX
+$ brew install graphviz
+
+2. Install PlantUML integration for IntelliJ
+Preferences -> Plugins -> "PlantUML integration"
+'/
+@startuml{about.png}
+
+title ticket & issue to Jira
+
+[AnyToJira] --> [NEW JIRA]
+
+[Confluence] --> [AnyToJira]
+[Redmine] --> [AnyToJira]
+[OLD JIRA] --> [AnyToJira]
+[Github] --> [AnyToJira]
+
+@enduml

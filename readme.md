@@ -2,6 +2,8 @@
 
 The script migrating from Confluence table, JIRA ticket, Redmine issue, and Github issue to JIRA.
 
+![about](./docs/about.svg)
+
 # Install
 
 Execute this command after setting ruby and bundler.
