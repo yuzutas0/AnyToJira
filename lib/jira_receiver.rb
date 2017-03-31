@@ -19,7 +19,9 @@ class JiraReceiver
   def self.issues
     client = JIRA::Client.new(JIRA_COMMON.options)
     issues = {}
-    client.Issue.jql(ENV['JIRA_JQL']).each { |issue| issues[issue.summary] = URL_PREFIX + issue.key }
+    client.Issue.jql(ENV['JIRA_JQL']).each do |issue|
+      issues[issue.summary] = URL_PREFIX + issue.key
+    end
     issues
   end
 end
