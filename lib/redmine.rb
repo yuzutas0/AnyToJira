@@ -15,10 +15,10 @@ require 'json'
 # Redmine -> JIRA
 # -----------------------------------------------
 class Redmine
-  URL_HOST = "#{ENV['REDMINE_URL']}/projects/#{ENV['REDMINE_PROJECT_NAME']}/issues.json"
-  URL_PARAM_API_KEY = "key=#{ENV['REDMINE_API_KEY']}"
-  URL_PARAM_QUERY_ID = "query_id=#{ENV['REDMINE_QUERY_ID']}"
-  URL_PREFIX = URL_HOST + '?' + URL_PARAM_API_KEY + '&' + URL_PARAM_QUERY_ID
+  URL_PREFIX = "#{ENV['REDMINE_URL']}/projects/" \
+               "#{ENV['REDMINE_PROJECT_NAME']}/issues.json?" \
+               "key=#{ENV['REDMINE_API_KEY']}&" \
+               "query_id=#{ENV['REDMINE_QUERY_ID']}"
   LIMIT_SIZE = 100
 
   class << self
