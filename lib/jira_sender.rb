@@ -21,7 +21,9 @@ class JiraSender
   def initialize
     @client = JIRA::Client.new(JIRA_COMMON.options)
     @project_id = @client.Project.find(ENV['JIRA_PROJECT_NAME']).id
-    @issue_type = @client.Issuetype.all.find { |type| type.name == ENV['JIRA_ISSUE_NAME'] }.id
+    @issue_type = @client.Issuetype.all.find do |type|
+      type.name == ENV['JIRA_ISSUE_NAME']
+    end.id
   end
 
   def send_jira(summary, description)
