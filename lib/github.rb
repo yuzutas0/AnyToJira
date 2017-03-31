@@ -20,7 +20,11 @@ class Github
     def issues
       issues = {}
       client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
-      REPOSITORIES.each { |repo| responses(client, repo).each { |issue| issues[issue.title] = issue.html_url } }
+      REPOSITORIES.each do |repo|
+        responses(client, repo).each do |issue|
+          issues[issue.title] = issue.html_url
+        end
+      end
       issues
     end
 
