@@ -16,12 +16,14 @@ require './lib/jira_common'
 class JiraReceiver
   URL_PREFIX = "#{ENV['JIRA_HOST']}#{ENV['JIRA_CONTEXT_PATH']}/browse/"
 
-  def self.issues
-    client = JIRA::Client.new(JIRA_COMMON.options)
-    issues = {}
-    client.Issue.jql(ENV['JIRA_JQL']).each do |issue|
-      issues[issue.summary] = URL_PREFIX + issue.key
+  class << self
+    def issues
+      client = JIRA::Client.new(JIRA_COMMON.options)
+      issues = {}
+      client.Issue.jql(ENV['JIRA_JQL']).each do |issue|
+        issues[issue.summary] = URL_PREFIX + issue.key
+      end
+      issues
     end
-    issues
   end
 end

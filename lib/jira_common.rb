@@ -11,14 +11,16 @@ Dotenv.load '.env'
 # Settings
 # -----------------------------------------------
 class JiraCommon
-  def self.options
-    {
-      username: ENV['JIRA_MAILADDRESS'],
-      password: ENV['JIRA_PASSWORD'],
-      site: ENV['JIRA_HOST'],
-      context_path: ENV['JIRA_CONTEXT_PATH'],
-      use_ssl: false,
-      auth_type: :basic
-    }
+  class << self
+    def options
+      {
+        username: ENV['JIRA_MAILADDRESS'],
+        password: ENV['JIRA_PASSWORD'],
+        site: ENV['JIRA_HOST'],
+        context_path: ENV['JIRA_CONTEXT_PATH'],
+        use_ssl: false,
+        auth_type: :basic
+      }
+    end
   end
 end
