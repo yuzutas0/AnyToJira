@@ -4,6 +4,10 @@ The script migrating from Confluence table, JIRA ticket, Redmine issue, and Gith
 
 ![about](./docs/about.png)
 
+# Component
+
+![component](./docs/component.png)
+
 # Install
 
 Execute this command after setting ruby and bundler.

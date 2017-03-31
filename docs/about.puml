@@ -10,11 +10,15 @@ Preferences -> Plugins -> "PlantUML integration"
 
 title ticket & issue to Jira
 
-[AnyToJira] --> [NEW JIRA]
+package data-flow {
 
-[Confluence] --> [AnyToJira]
-[Redmine] --> [AnyToJira]
-[OLD JIRA] --> [AnyToJira]
-[Github] --> [AnyToJira]
+    [AnyToJira] --> [(new) JIRA]
+
+    [Confluence] --> [AnyToJira]
+    [Redmine] --> [AnyToJira]
+    [(old) JIRA] --> [AnyToJira]
+    [Github] --> [AnyToJira]
+
+}
 
 @enduml

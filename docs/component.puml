@@ -1,0 +1,33 @@
+/'
+## Setup
+1. Install graphviz into MacOSX
+$ brew install graphviz
+
+2. Install PlantUML integration for IntelliJ
+Preferences -> Plugins -> "PlantUML integration"
+'/
+@startuml{about.png}
+
+title Component
+
+package AnyToJira {
+
+    [main.rb]
+
+    package lib {
+        [confluence.rb]
+        [github.rb]
+        [jira_sender.rb] ..> [jira_common.rb]
+        [jira_receiver.rb] ..> [jira_common.rb]
+        [redmine.rb]
+    }
+
+    [main.rb] <-- [confluence.rb]
+    [main.rb] <-- [github.rb]
+    [main.rb] --> [jira_sender.rb]
+    [main.rb] <-- [jira_receiver.rb]
+    [main.rb] <-- [redmine.rb]
+
+}
+
+@enduml
